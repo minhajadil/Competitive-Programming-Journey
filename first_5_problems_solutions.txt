@@ -1,0 +1,267 @@
+FIRST 5 COMPETITIVE PROGRAMMING PROBLEMS AND SOLUTIONS
+=====================================================
+
+This document contains the first 5 problems from the repository with detailed solution explanations based on the existing code implementations.
+
+PROBLEM 1: In Search of an Easy Problem (1030A)
+===============================================
+Link: https://codeforces.com/contest/1030/problem/A
+
+Problem Description:
+When preparing a tournament, Codeforces coordinators try their best to make the first problem as easy as possible. A problem is easy if it can be solved by more than half of the contestants.
+You are given the results of the survey on n participants. For each participant, you know if they think the problem is easy (represented by 1) or hard (represented by 0).
+Your task is to determine if the problem is easy or hard based on the survey results.
+
+Solution Explanation:
+The solution works by:
+1. Reading the number of participants (n)
+2. Reading n survey results (0 or 1)
+3. Counting how many participants think the problem is easy (value = 1)
+4. If at least one participant thinks it's hard (counter > 0), output "HARD"
+5. Otherwise, output "EASY"
+
+Key Logic:
+- If any participant finds the problem hard, the overall assessment is "HARD"
+- Only if ALL participants find it easy, the assessment is "EASY"
+
+Code Implementation:
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int a;
+    cin>> a;
+    int b[a];
+    int counter = 0;
+
+    for(int i =0; i<a; i++) {
+        cin>>b[i];
+        if(b[i]==1) counter++;
+    }
+
+    if(counter>0) cout << "HARD" << endl;
+    else cout << "EASY" << endl;
+
+    return 0;
+}
+```
+
+PROBLEM 2: Nearly Lucky Number (110A)
+====================================
+Link: https://codeforces.com/contest/110/problem/A
+
+Problem Description:
+A lucky number is a number that contains only digits 4 and 7.
+A nearly lucky number is a number such that the count of lucky digits (4 and 7) in it is a lucky number.
+Given a number, determine if it is nearly lucky.
+
+Solution Explanation:
+The solution works by:
+1. Reading the input number
+2. Extracting each digit and counting how many are 4 or 7
+3. Checking if the count itself is a lucky number (4 or 7)
+4. Output "YES" if nearly lucky, "NO" otherwise
+
+Key Logic:
+- Extract digits using modulo 10 and integer division
+- Count occurrences of digits 4 and 7
+- The count must be exactly 4 or 7 for the number to be nearly lucky
+
+Code Implementation:
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+    unsigned long long int t;
+    cin>> t;
+
+    int counter =0;
+    int r;
+    while(t>=1) {
+        r=t%10;
+        if(r==7 ||r==4) counter++;
+        t=t/10;
+    }
+    if(counter==7 || counter==4) cout << "YES" << endl;
+    else cout << "NO" << endl;
+
+    return 0;
+}
+```
+
+PROBLEM 3: Petya and Strings (112A)
+===================================
+Link: https://codeforces.com/contest/112/problem/A
+
+Problem Description:
+Little Petya loves presents. His mother bought him two strings of the same size for his birthday.
+The strings consist of uppercase and lowercase Latin letters. Now Petya wants to compare these two strings lexicographically.
+The comparison should be case-insensitive (meaning that the casing of letters should be ignored).
+Help Petya perform the comparison.
+
+Solution Explanation:
+The solution works by:
+1. Reading two input strings
+2. Converting both strings to lowercase for case-insensitive comparison
+3. Comparing the strings lexicographically
+4. Output 1 if first string > second, 0 if equal, -1 if first < second
+
+Key Logic:
+- Use tolower() function to convert characters to lowercase
+- C++ string comparison automatically handles lexicographic ordering
+- Return appropriate integer based on comparison result
+
+Code Implementation:
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+#define optimize() ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
+int main() {
+    string a,b;
+    cin >> a >>b;
+    int size=a.size();
+    
+    for(int i =0; i<size; i++) {
+        a[i]=tolower(a[i]);
+        b[i]=tolower(b[i]);
+    }
+    if(a>b) cout << 1 << endl;
+    else if(a==b) cout << 0 << endl;
+    else cout << -1 << endl;
+    
+    return 0;
+}
+```
+
+PROBLEM 4: Game 23 (1141A)
+==========================
+Link: https://codeforces.com/contest/1141/problem/A
+
+Problem Description:
+Polycarp plays "Game 23". Initially he has a number n and wants to transform it to m.
+In one move, he can multiply the number by 2 or by 3.
+Find the minimum number of moves required to transform n into m, or determine if it's impossible.
+
+Solution Explanation:
+The solution works by:
+1. Reading two numbers n and m
+2. Check if m is divisible by n (if not, impossible)
+3. Calculate d = m/n
+4. Count how many times we can divide d by 2 and 3
+5. If d becomes 1, return the count; otherwise return -1
+
+Key Logic:
+- If m is not divisible by n, transformation is impossible
+- We need to check if m/n can be expressed as 2^a * 3^b
+- Count divisions by 2 and 3 until d becomes 1
+- If d doesn't become 1, the transformation is impossible
+
+Code Implementation:
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+    int d;
+    int cnt = 0;
+
+    if(m%n!=0) cout << -1 << endl;
+    else {
+        d = m/n;
+        while(d%3==0) {
+            d/=3;
+            cnt++;
+        }
+        while(d%2==0) {
+            cnt++;
+            d/=2;
+        }
+        if(d==1) cout << cnt << endl;
+        else cout << -1 << endl;
+    }
+
+    return 0;
+}
+```
+
+PROBLEM 5: Maximal Continuous Rest (1141B)
+==========================================
+Link: https://codeforces.com/contest/1141/problem/B
+
+Problem Description:
+Polycarp lives in a country where days form a cycle. There are n days, and after day n comes day 1 again.
+For each day, Polycarp knows whether he has to work (0) or can rest (1).
+Find the maximum number of consecutive days when Polycarp can rest.
+
+Solution Explanation:
+The solution works by:
+1. Reading the number of days and the work/rest schedule
+2. Finding the maximum continuous sequence of 1s (rest days)
+3. Handling the circular nature - if both first and last days are rest days, they connect
+4. Return the maximum continuous rest period
+
+Key Logic:
+- Track current continuous rest days and maximum found so far
+- Handle circular case: if array starts and ends with 1s, they form one continuous sequence
+- Count rest days from beginning until first 0, and from last 0 until end
+- Add these counts if both first and last elements are 1
+
+Code Implementation:
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    int a[n];
+    for(int i =0; i<n; i++) {
+        cin >> a[i];
+    }
+    int max=-1;
+    int cnt =0;
+    int f = 1;
+    bool y =0;
+    if(a[0]==1) y=1;
+    int first=0;
+
+     for(int i =0; i<n; i++) {
+        if(a[i]==1) cnt++;
+        if(max<cnt) max= cnt;
+        if(f==1 && y==1 &&a[i]==0) { first=max; f=2; }  
+        if(a[i]==0) cnt =0;
+     }
+     int r=0;
+
+     if(a[n-1]==1) {
+        for(int i =n-1; i>=0; i--) {
+            if(a[i]==0) break;
+            else r++;
+        }
+     }
+     first = r+ first;
+
+     if(max<first) max=first;
+
+     cout << max << endl;
+    
+    return 0;
+}
+```
+
+SUMMARY
+=======
+These 5 problems demonstrate fundamental programming concepts:
+1. Array processing and conditional logic
+2. Number theory and digit manipulation  
+3. String processing and lexicographic comparison
+4. Mathematical problem solving with prime factorization
+5. Array algorithms with circular considerations
+
+Each solution showcases different algorithmic approaches and data structure usage commonly found in competitive programming.
